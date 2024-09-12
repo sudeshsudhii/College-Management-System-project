@@ -1,4 +1,4 @@
-﻿const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const Teacher = require('../models/teacherSchema.js');
 const Subject = require('../models/subjectSchema.js');
 
@@ -32,6 +32,9 @@ const teacherLogIn = async (req, res) => {
         if (teacher) {
             const validated = await bcrypt.compare(req.body.password, teacher.password);
             if (validated) {
+                teacher = await teacher.populate("teachSubject", "subName sessions")
+                teacher = await teacher.populate("school", "schoolName")
+                teacher = await teacher.populate("teachSclass", "sclassName")
                 teacher.password = undefined;
                 res.send(teacher);
             } else {
