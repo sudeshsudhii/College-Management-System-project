@@ -1,5 +1,5 @@
-﻿export const calculateSubjectAttendancePercentage = (presentCount, totalSessions) => {
-    if (totalSessions === 0) {
+export const calculateSubjectAttendancePercentage = (presentCount, totalSessions) => {
+    if (totalSessions === 0 || presentCount === 0) {
         return 0;
     }
     const percentage = (presentCount / totalSessions) * 100;
@@ -52,7 +52,7 @@ export const calculateOverallAttendancePercentage = (subjectAttendance) => {
         presentCountSum += attendance.status === "Present" ? 1 : 0;
     });
 
-    if (totalSessionsSum === 0) {
+    if (totalSessionsSum === 0 || presentCountSum === 0) {
         return 0;
     }
 
